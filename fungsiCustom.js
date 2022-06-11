@@ -19,6 +19,12 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
+
+let data = []
+const dataBaru = (word) => {
+  data.push(word);
+}
+
 const newFile1 = (fnCallback) => {
   fs.readFile(file1, (err, data) => {
     if(err){
@@ -26,6 +32,7 @@ const newFile1 = (fnCallback) => {
     }
     const newData = JSON.parse(data)
     const processData = newData.message.split(" ")
+    dataBaru(processData[1])
     fnCallback(processData[1])
   })
 }
@@ -38,6 +45,7 @@ const newFile2 = (fnCallback) => {
     const newData = JSON.parse(data)
     const processData = newData[0].message.split(" ")
     const combineData = `${processData[1]}`
+    dataBaru(combineData)
     fnCallback(combineData)
   })
 }
@@ -50,26 +58,21 @@ const newFile3 = (fnCallback) => {
     const newData = JSON.parse(data)
     const processData = newData[0].data.message.split(" ")
     const combineData = `${processData[1]}`
+    dataBaru(combineData)
     fnCallback(combineData)
   })
 }
 
 const bacaData = (fnCallback) => {
-  hasilAkhir = []
   newFile1(image => {
-    fnCallback = image
-    hasilAkhir.push(fnCallback)
-    console.log(fnCallback)
+    // console.log(data)
     newFile2(image2 => {
-      fnCallback = image2
-      hasilAkhir.push(fnCallback)
-      console.log(fnCallback)
+      // console.log(data)
       newFile3(image3 =>{
-        fnCallback = image3
-        hasilAkhir.push(fnCallback)
-        console.log(fnCallback)
-        console.log(hasilAkhir)
-        return hasilAkhir
+        // console.log(data)
+        fnCallback(null, data.filter((e, i, s) => {
+          return i === s.indexOf(e);
+        }))
       })
     })
   })        
