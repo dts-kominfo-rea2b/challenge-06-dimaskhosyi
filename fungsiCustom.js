@@ -55,13 +55,20 @@ const newFile3 = (fnCallback) => {
 }
 
 const bacaData = (fnCallback) => {
+  hasilAkhir = []
   newFile1(image => {
     fnCallback = image
+    hasilAkhir.push(fnCallback)
+    console.log(fnCallback)
     newFile2(image2 => {
       fnCallback = image2
+      hasilAkhir.push(fnCallback)
+      console.log(fnCallback)
       newFile3(image3 =>{
         fnCallback = image3
-        const hasilAkhir = [`${image}`, `${image2}`, `${image3}`]
+        hasilAkhir.push(fnCallback)
+        console.log(fnCallback)
+        console.log(hasilAkhir)
         return hasilAkhir
       })
     })
